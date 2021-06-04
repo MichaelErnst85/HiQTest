@@ -1,13 +1,101 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Open Sans Condensed';
+  color: rgba(104, 103, 103, 0.849);
+  
+}
+.navbar {
+  display: flex;
+  background: linear-gradient(90deg, rgb(165,1,165)0%, rgb(0,0,0) 30%, rgb(0,0,0) 70%, rgb(165,1,165)100%);
+  padding: 10px;
+  justify-content:space-evenly;
+  align-items: center;
+  margin: 0 auto;
+ 
+ 
+}
+.navbar h2 {
+  font-size: 40px;
+  color: rgb(165, 1, 165);
+}
+.link-wrapper  a {
+text-decoration: none;
+font-weight:lighter;
+margin: 0 .6rem;
+font-size: 30px;
+}
+.link-wrapper a:hover {
+  animation: link-hover 10s linear;
+}
+.footer {
+  display: flex;
+  background: linear-gradient(90deg, rgb(165,1,165)0%, rgb(0,0,0) 30%, rgb(0,0,0) 70%, rgb(165,1,165)100%);
+  padding: 10px;
+  justify-content:space-evenly;
+  align-items: center;
+  margin: 0 ;
+  position:relative;
+  bottom: auto;
+}
+.footer h2 {
+  font-size: 40px;
+  color: rgb(165, 1, 165);
+}
+.footer a {
+  text-decoration: none;
+  font-size: 30px;
+  
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.footer a:hover {
+  animation: link-hover 10s linear;
+}
+
+@keyframes link-hover {
+  from{
+    color: rgba(104, 103, 103, 0.849);
+  }
+  10% {
+    color: rgb(165, 1, 165);
+  }
+  to{
+    color: rgb(165, 1, 165);
+  }
+  
+}
+.home, .upload, .reader, .privacy, .error{
+  border: 1px solid rgb(165,1,165);
+  border-radius: 5px;
+  padding: .2rem .4rem;
+  text-align: center;
+}
+.content {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 10px;
+}
+.privacy h1, .home h1, .reader h1, .upload  h1, .error h1 {
+  color:rgb(165, 1, 165);
+}
+#upload {
+  margin: 1rem;
+  padding: 10px;
+  cursor:pointer;
+}
+.submit-wrapper button {
+  border-radius: 5px;
+  color:rgb(255, 255, 255);
+  background-color: rgb(165, 1, 165);
+  border: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.submit-wrapper [type="file" i] {
+  border-radius: 5px;
+  /* color:rgb(255, 255, 255); */
+  /* background-color: rgb(165, 1, 165); */
+  border: 0;
+  padding: 5px 10px;
 }

@@ -1,9 +1,12 @@
 const Home = () => {
     return (  
         <div className="home">  
-            <h2>
-                Hej
-            </h2>
+            <h1>
+                Welcome
+            </h1>
+            <p>
+                This tool is used to upload and also display text files in a browser.
+            </p>
         </div>
     );
 }

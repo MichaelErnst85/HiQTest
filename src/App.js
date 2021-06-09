@@ -1,11 +1,12 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Error from "./Error";
+import Footer from "./Footer";
 import Home from "./Home";
 import NavBar from "./NavBar";
+import Privacy from "./Privacy";
 import Reader from "./Reader";
 import Upload from "./Upload";
-import Footer from "./Footer";
-import Privacy from "./Privacy";
-import Error from "./Error";
+
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function App() {
             </Route>
           </Switch>
         </div>
-         <Footer />
+        <Footer />
       </div>
     </Router>
   );

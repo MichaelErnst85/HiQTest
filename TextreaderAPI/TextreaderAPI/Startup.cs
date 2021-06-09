@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TextreaderAPI.Data;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace TextreaderAPI
 {
@@ -29,8 +31,13 @@ namespace TextreaderAPI
         {
             services.AddControllers();
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TextreaderApi v1", Version = "v1" });
+            });
+
             services.AddDbContext<TextreaderAPIContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("TextreaderAPIContext")));
+                options.UseSqlServer(Configuration.GetConnectionString("TextreaderAPIContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +49,14 @@ namespace TextreaderAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TextreaderApi v1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 

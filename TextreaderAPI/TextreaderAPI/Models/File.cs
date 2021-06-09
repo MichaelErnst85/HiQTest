@@ -14,6 +14,8 @@ namespace TextreaderAPI.Models
         public int id { get; set; }
         [Column(TypeName = "varchar(200)")]
         public string fileName { get; set; }
+        [Column(TypeName = "varchar(MAX)")]
+        public string fileData { get; set; }
 
 
     }

@@ -24,6 +24,7 @@ namespace TextreaderAPI.Data
                 {
                     m.HasKey(f => f.id);
                     m.Property(f => f.fileName).HasColumnType("varchar(200)");
+                    m.Property(f => f.fileData).HasColumnType("varchar(max)");
                 });
 
             

@@ -19,6 +19,7 @@ namespace TextreaderAPI
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +30,17 @@ namespace TextreaderAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                    builder =>
+                                    {
+                                        builder.WithOrigins("http://localhost:3000",
+                                                            "https://localhost:44326/api/Files");
+                                    });
+            });
+
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -50,6 +62,14 @@ namespace TextreaderAPI
 
             app.UseHttpsRedirection();
 
+
+
+            app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
+
+            app.UseAuthorization();
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -57,10 +77,6 @@ namespace TextreaderAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "TextreaderApi v1");
                 c.RoutePrefix = string.Empty;
             });
-
-            app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

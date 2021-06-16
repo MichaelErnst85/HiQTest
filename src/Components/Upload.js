@@ -1,12 +1,50 @@
+import { useEffect } from "react";
 import usePostFiles from "../Data/usePostFiles";
 
 const endpoint = "http://localhost:44326/api";
 const Upload = () => {
  
-
- const { isUploading, fileName, error, success } = usePostFiles(endpoint);
+ const { 
+            isUploading, 
+            fileName, 
+            setFileName, 
+            error,
+            success, 
+            submitFile
+} = usePostFiles(endpoint);
   
-  return (
+const onSubmit = () => {
+  submitFile(endpoint+ '/Files')
+};
+
+
+const onFileChange = (e) => {
+  const changedFile = e.target.files[0];
+
+  setFileName(changedFile);
+}
+
+
+const renderLoader = () => {
+  if(!isUploading) {
+    return;
+  }
+  return <button disabled>Uploading..</button>
+};
+const renderError = () => {
+  if(!error) {
+    return;
+  }
+  return <h2> {error} </h2>
+};
+const renderSuccess = () => {
+  if(!success) {
+    return;
+  }
+  return <h2>Succesfully uploaded file</h2>
+};
+
+return (
     <div className="upload">
       <h1>Upload</h1>
       <h2>Here you can upload your files</h2>
@@ -15,15 +53,16 @@ const Upload = () => {
           type="file"
           id="upload"
           value={fileName}
+          onChange= { onFileChange }
         ></input>
-        {!isUploading && (
-          <button type="submit" onClick={postFile}>
+          <button type="submit" 
+          disabled={!isUploading}
+          onClick={onSubmit}>
             Upload
           </button>
-        )}
-        {isUploading && <button disabled>Uploading..</button>}
-        {error && <h2> {error} </h2>}
-        {success && <h2>Succesfully uploaded file</h2>}
+        { renderLoader() } 
+        { renderError() }
+        { renderSuccess() }
       </div>
     </div>
   );

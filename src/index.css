@@ -17,6 +17,7 @@
   top: 0;
   width: 100%;
   margin-bottom: 2rem;
+  box-shadow: 0 7px 7px rgba(104, 103, 103, 0.849);
 }
 .navbar h2 {
   font-size: 40px;
@@ -44,6 +45,7 @@ color:rgb(255, 255, 255)
   width: 100%;
   bottom: 0;
   left: 0;
+  box-shadow: 60px   rgba(104, 103, 103, 0.849);
 }
 .footer h2 {
   font-size: 40px;

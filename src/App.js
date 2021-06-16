@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Error from "./Error";
-import Footer from "./Footer";
-import Home from "./Home";
-import NavBar from "./NavBar";
-import Privacy from "./Privacy";
-import Reader from "./Reader";
-import Upload from "./Upload";
+import Error from "./Components/Error";
+import Footer from "./Components/Footer";
+import Home from "./Components/Home";
+import NavBar from "./Components/NavBar";
+import Privacy from "./Components/Privacy";
+import Reader from "./Components/Reader";
+import Upload from "./Components/Upload";
+
 
 
 function App() {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import axios from "axios";
 
-const usePostFiles = (url) => {
+const usePostFiles = () => {
   const history = useHistory();
 
   const [isUploading, setIsUploading] = useState(false);

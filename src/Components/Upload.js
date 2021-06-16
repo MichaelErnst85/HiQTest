@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import usePostFiles from "../Data/usePostFiles";
 
 const endpoint = "http://localhost:44326/api";
@@ -30,7 +30,7 @@ const renderLoader = () => {
     return;
   }
   return <button disabled>Uploading..</button>
-};
+}
 const renderError = () => {
   if(!error) {
     return;
@@ -52,11 +52,11 @@ return (
         <input
           type="file"
           id="upload"
-          value={fileName}
+          value={ fileName }
           onChange= { onFileChange }
         ></input>
           <button type="submit" 
-          disabled={!isUploading}
+          // disabled={!isUploading}
           onClick={onSubmit}>
             Upload
           </button>

@@ -6,6 +6,7 @@ import NavBar from "./Components/NavBar";
 import Privacy from "./Components/Privacy";
 import Reader from "./Components/Reader";
 import Upload from "./Components/Upload";
+import FileDetails from "./Components/FileDetails";
 
 
 
@@ -25,6 +26,9 @@ function App() {
             <Route path="/read">
               <Reader /> 
             </Route>
+            <Route path="/filedetails/:id">
+               <FileDetails />
+               </Route>
             <Route path="/privacy">
               <Privacy /> 
             </Route>

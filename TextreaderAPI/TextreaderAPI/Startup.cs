@@ -36,7 +36,9 @@ namespace TextreaderAPI
                                     builder =>
                                     {
                                         builder.WithOrigins("http://localhost:3000",
-                                                            "https://localhost:44326/api/Files");
+                                                            "https://localhost:44326/api/Files")
+                                                            .AllowAnyHeader()
+                                                            .AllowAnyMethod();
                                     });
             });
 

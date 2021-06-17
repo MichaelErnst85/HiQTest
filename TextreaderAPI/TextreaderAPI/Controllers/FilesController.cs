@@ -85,6 +85,13 @@ namespace TextreaderAPI.Controllers
 
             return CreatedAtAction("GetFile", new { id = file.id }, file);
         }
+        //[HttpPost]
+        //public async Task<ActionResult<File>> PostFileToServer([FromBody] File file)
+        //{
+        //    _context.File.Add(file);
+        //    await _context.SaveChangesAsync();
+        //    return CreatedAtAction("GetFile", new { id = file.id }, file);
+        //}
 
         // DELETE: api/Files/5
         [HttpDelete("{id}")]

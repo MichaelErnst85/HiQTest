@@ -35,6 +35,9 @@ const FileDetails  = () => {
                 <h2>
                     This is a detail
                 </h2>
+                <div className="file-text">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero deserunt ipsam assumenda. Necessitatibus exercitationem cupiditate ratione molestiae nesciunt libero, non sed commodi dolores quas laudantium veniam repellat numquam voluptatibus fugiat.
+                </div>
                 <h3
                 style={ styleObj }
                 onClick={ GoBack }>

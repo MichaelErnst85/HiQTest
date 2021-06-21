@@ -7,28 +7,25 @@ const usePostFiles = () => {
   const history = useHistory();
 
   const [isUploading, setIsUploading] = useState(false);
-  const [fileName, setFileName] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
 
+
  
- const submitFile = (url) => {
-   console.log(fileName);
-  axios(
-  {
-    url: "https://localhost:44326/api/files",
-    data: JSON.stringify(fileName.name),
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-     
-    }
-  })
-    .then( res => {
+ const submitFile =  (url) => {
+   console.log(selectedFile.name);
+   const formData = new FormData();
+   formData.append("fileName", selectedFile, selectedFile.name)
+   axios
+    .post(url)
+  
+    .then(( res ) => {
         console.log("working...")
         setIsUploading(true);
         setSuccess(res.ok);
       if (!res.ok) {
+        console.log(res)
           setError("Something went wrong");
         throw Error("Something went wrong");    
       }})
@@ -41,11 +38,12 @@ const usePostFiles = () => {
     .catch(error => {
         if( error?.request){
             console.log("ERROR object", error);
+            console.log(error.response);
             setError(error?.message);
         }
     });
 };
-  return { isUploading, error, fileName, setFileName, success, submitFile };
+  return { isUploading, setIsUploading, error, setError, selectedFile, setSelectedFile, success, submitFile };
 };
 
 export default usePostFiles;

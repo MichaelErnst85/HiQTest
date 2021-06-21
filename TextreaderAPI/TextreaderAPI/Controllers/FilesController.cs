@@ -76,22 +76,24 @@ namespace TextreaderAPI.Controllers
 
         // POST: api/Files
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
-        public async Task<ActionResult<File>> PostFile(File file)
-        {
-            _context.File.Add(file);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetFile", new { id = file.id }, file);
-        }
+        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         //[HttpPost]
-        //public async Task<ActionResult<File>> PostFileToServer([FromBody] File file)
+        //public async Task<ActionResult<File>> PostFile(File file)
         //{
         //    _context.File.Add(file);
         //    await _context.SaveChangesAsync();
+
         //    return CreatedAtAction("GetFile", new { id = file.id }, file);
         //}
+        [HttpPost]
+        public string PostFileToServer(IFormCollection data, IFormFile formFile)
+        {
+            var fileName = data["fileName"];
+
+
+            return fileName;
+           
+        }
 
         // DELETE: api/Files/5
         [HttpDelete("{id}")]

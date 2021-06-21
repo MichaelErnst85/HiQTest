@@ -11,9 +11,10 @@ const Upload = () => {
 
   const { 
             isUploading, 
-            fileName, 
-            setFileName,
+            setIsUploading,
+            setSelectedFile,
             error,
+            setError,
             success, 
             submitFile
 } = usePostFiles(endpoint);
@@ -25,7 +26,9 @@ const onSubmit = () => {
 
 const onFileChange = (e) => {
   const changedFile = e.target.files[0];
-  setFileName(changedFile);
+  setSelectedFile(changedFile);
+  setError(null);
+  setIsUploading(false)
 }
 
 
@@ -55,9 +58,11 @@ return (
     <h1>Upload</h1>
     <h2>Here you can upload your files</h2>
     <div className="submit-wrapper">
-    <input type="file" name="file" onChange={ onFileChange }/>
+    <input type="file"
+    name="file" 
+    onChange={ onFileChange }/>
     <button type="submit" 
-          onClick={ onSubmit}>
+          onClick={ onSubmit }>
             Upload
           </button>
       {renderLoader()}

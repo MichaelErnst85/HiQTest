@@ -4,116 +4,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TextreaderAPI.Data;
-using TextreaderAPI.Models;
+using Microsoft.Extensions.Logging;
 
 namespace TextreaderAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FilesController : ControllerBase
+    public class filesController : ControllerBase
     {
-        private readonly TextreaderAPIContext _context;
+        private readonly ILogger<filesController> _logger;
 
-        public FilesController(TextreaderAPIContext context)
+        public filesController(ILogger<filesController> logger)
         {
-            _context = context;
+            _logger = logger;
         }
 
         // GET: api/Files
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<File>>> GetFile()
+        public async Task<ActionResult> Get()
         {
-            return await _context.File.ToListAsync();
+            await Task.Run(Get);
+            return Ok();
         }
 
         // GET: api/Files/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<File>> GetFile(int id)
-        {
-            var file = await _context.File.FindAsync(id);
 
-            if (file == null)
-            {
-                return NotFound();
-            }
-
-            return file;
-        }
-
-        // PUT: api/Files/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutFile(int id, File file)
-        {
-            if (id != file.id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(file).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!FileExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Files
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<File>> PostFile(File file)
-        //{
-        //    _context.File.Add(file);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction("GetFile", new { id = file.id }, file);
-        //}
         [HttpPost]
-        public string PostFileToServer(IFormCollection data, IFormFile formFile)
+        public string PostFile(IFormCollection data, IFormFile formFile)
         {
             var fileName = data["fileName"];
 
 
             return fileName;
-           
-        }
 
-        // DELETE: api/Files/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<File>> DeleteFile(int id)
-        {
-            var file = await _context.File.FindAsync(id);
-            if (file == null)
-            {
-                return NotFound();
-            }
-
-            _context.File.Remove(file);
-            await _context.SaveChangesAsync();
-
-            return file;
-        }
-
-        private bool FileExists(int id)
-        {
-            return _context.File.Any(e => e.id == id);
         }
     }
 }

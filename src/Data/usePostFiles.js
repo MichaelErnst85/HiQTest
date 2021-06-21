@@ -15,11 +15,10 @@ const usePostFiles = () => {
  
  const submitFile =  (url) => {
    console.log(selectedFile.name);
-   const formData = new FormData();
+   let formData = new FormData();
    formData.append("fileName", selectedFile, selectedFile.name)
    axios
-    .post(url)
-  
+    .post(url, formData.name)
     .then(( res ) => {
         console.log("working...")
         setIsUploading(true);

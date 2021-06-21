@@ -35,10 +35,10 @@ namespace TextreaderAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                     builder =>
                                     {
-                                        builder.WithOrigins("http://localhost:3000",
-                                                            "https://localhost:44326/api/Files")
+                                        builder.WithOrigins()
                                                             .AllowAnyHeader()
-                                                            .AllowAnyMethod();
+                                                            .AllowAnyMethod()
+                                                            .AllowAnyOrigin();
                                     });
             });
 

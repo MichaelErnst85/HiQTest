@@ -1,12 +1,12 @@
 import { useHistory, useParams } from "react-router-dom";
-import usePostFiles from "../Data/usePostFiles";
+import useGetFiles from "../Data/usePostFiles";
 
 const endpoint ="https://localhost:44326/api"
 const FileDetails  = () => {
 
     const { id } = useParams();
     const history = useHistory();
-    const {data: file, error, isLoading} = usePostFiles(endpoint +"/Files/"+id)
+    const {data: fileName, error, isLoading} = useGetFiles(endpoint +"/Files/"+id)
 
     const styleObj = {
         fontStyle:"italic",
@@ -37,6 +37,7 @@ const FileDetails  = () => {
                 </h2>
                 <div className="file-text">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero deserunt ipsam assumenda. Necessitatibus exercitationem cupiditate ratione molestiae nesciunt libero, non sed commodi dolores quas laudantium veniam repellat numquam voluptatibus fugiat.
+                    { fileName }
                 </div>
                 <h3
                 style={ styleObj }

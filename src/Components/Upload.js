@@ -34,7 +34,10 @@ const onFileChange = (e) => {
 
 const renderLoader = () => {
   if(!isUploading) {
-    return;
+    return <button type="submit" 
+    onClick={ onSubmit }>
+      Upload
+    </button>;
   }
   return <button disabled>Uploading..</button>
 }
@@ -59,15 +62,11 @@ return (
     <h2>Here you can upload your files</h2>
     <div className="submit-wrapper">
     <input type="file"
-    name="file" 
+    name="fileName" 
     onChange={ onFileChange }/>
-    <button type="submit" 
-          onClick={ onSubmit }>
-            Upload
-          </button>
-      {renderLoader()}
-      {renderError()}
-      {renderSuccess()}
+      { renderLoader() }
+      { renderError() }
+      { renderSuccess() }
     </div>
   </div>
 );

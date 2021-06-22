@@ -1,12 +1,10 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Error from "./Components/Error";
-import Footer from "./Components/Footer";
+import Error from "./Components/StandardComponents/Error";
+import Footer from "./Components/StandardComponents/Footer";
 import Home from "./Components/Home";
-import NavBar from "./Components/NavBar";
-import Privacy from "./Components/Privacy";
+import NavBar from "./Components/StandardComponents/NavBar";
+import Privacy from "./Components/StandardComponents/Privacy";
 import Reader from "./Components/Reader";
-import Upload from "./Components/Upload";
-import FileDetails from "./Components/FileDetails";
 
 
 
@@ -20,15 +18,9 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/upload">
-              <Upload />
-            </Route>
             <Route path="/read">
               <Reader /> 
             </Route>
-            <Route path="/filedetails/:id">
-               <FileDetails />
-               </Route>
             <Route path="/privacy">
               <Privacy /> 
             </Route>

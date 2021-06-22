@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,7 @@ using Microsoft.Extensions.Logging;
 
 namespace TextreaderAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class filesController : ControllerBase
     {
@@ -19,23 +21,34 @@ namespace TextreaderAPI.Controllers
             _logger = logger;
         }
 
-        // GET: api/Files
+        // GET: api/files
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-            await Task.Run(Get);
+           
             return Ok();
         }
 
-        // GET: api/Files/5
+        // GET: api/files/5
 
         [HttpPost]
-        public string PostFile(IFormCollection data, IFormFile formFile)
+        public async Task<ActionResult> PostFile(IFormFile formFile)
         {
-            var fileName = data["fileName"];
+            string[] validFiles = { "txt/plain", "application/octet-stream" };
+            if (!validFiles.Contains(formFile.ContentType))
+            {
+                return BadRequest("Does not support" + formFile.ContentType);
+            }
 
+            var result = new StringBuilder();
 
-            return fileName;
+            using (var reader = new StreamReader(formFile.OpenReadStream()))
+            {
+                while (reader.Peek() >= 0)
+                    result.AppendLine(await reader.ReadLineAsync());
+            }
+
+            return new OkObjectResult(result);
 
         }
     }

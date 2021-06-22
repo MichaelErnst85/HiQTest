@@ -5,7 +5,6 @@ const NavBar = () => {
             <h2>Textreader</h2>
             <div className="link-wrapper">
                 <Link to="/">Home</Link>
-                <Link to="/upload"> Upload </Link>
                 <Link to="/read">Read</Link>
             </div>
         </div>

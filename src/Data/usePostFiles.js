@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
-import axios from "axios";
+import axios from "./axiosconfig";
 
 
 const usePostFiles = () => {
@@ -13,13 +13,13 @@ const usePostFiles = () => {
 
 
  
- const submitFile =  (url) => {
+ const submitFile = async (url) => {
    console.log(selectedFile.name);
    let formData = new FormData();
-   formData.append("fileName", selectedFile, selectedFile.name)
-   axios
-    .post(url, formData.name)
-    .then(( res ) => {
+   formData.append("file", selectedFile)
+   await axios
+    .post('/', formData)
+    .then( async res => {
         console.log("working...")
         setIsUploading(true);
         setSuccess(res.ok);
@@ -32,6 +32,7 @@ const usePostFiles = () => {
       console.log("New file added");
       setIsUploading(false);
       setSuccess(true);
+      setSelectedFile('');
       history.push("/read");
     })
     .catch(error => {

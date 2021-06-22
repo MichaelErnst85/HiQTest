@@ -9,7 +9,7 @@ const useGetFiles = (url) => {
 
   useEffect(() => {
     axios
-      .get(url + "/Files")
+      .get(url + "/files")
       .then(function (res) {
         console.log('Incoming files', res.data);
         return res.data;

@@ -1,36 +1,47 @@
-import useGetFiles from "../Data/useGetFiles";
-import FileList from "./FileList"
+import { useDropzone } from 'react-dropzone';
+import { useCallback, useState } from "react";
 
-const endpoint = "https://localhost:44326/api";
+
 const Reader = () => {
+  
+  const [fileText, setFileText] = useState("");
+
+    const onDrop = useCallback((acceptedFiles) => {
+      acceptedFiles.forEach((file) => {
+        const reader = new FileReader();
+
+        reader.onabort = () => console.log('reading was aborted');
+        reader.onerror = () => console.log('error reading file');
+        reader.onload = () => {
+          const binaryStr = reader.result;
+          setFileText(binaryStr);
+          console.log(binaryStr);
+        }
+        reader.readAsText(file)
+      });
+    }, []);
+    const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
 
-  const { data, error, isLoading} = useGetFiles(endpoint)
 
-  const renderLoading = () => {
-    if(!isLoading){
-      return;
-    }
-    return <div id="load">
-    <div>G</div>
-    <div>N</div>
-    <div>I</div>
-    <div>D</div>
-    <div>A</div>
-    <div>O</div>
-    <div>L</div>
-  </div>
-  }
- 
-  return (
-    <div className="reader">
-      { renderLoading }
-      <h1>Read</h1>
-      <h2>Click on a file to read it</h2>
-       <FileList files={data}/>
-      {error && <h2> {error}</h2>}
-    </div>
-  );
-};
+
+    return (
+      <div className="reader">
+
+        <h1>Read</h1>
+
+        <div {...getRootProps()}>
+          <input {...getInputProps()} />
+          <p>
+            Drag 'n' drop some files here or click to select files
+            </p>
+            <p>
+            { fileText }
+            </p>
+        </div>
+      </div>
+    );
+  };
+
 
 export default Reader;

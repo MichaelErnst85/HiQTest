@@ -1,12 +1,9 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
 import axios from "./axiosconfig";
 
 
 const usePostFiles = () => {
-  const history = useHistory();
 
-  const [isUploading, setIsUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
@@ -19,9 +16,8 @@ const usePostFiles = () => {
    formData.append("file", selectedFile)
    await axios
     .post('/', formData)
-    .then( async res => {
+    .then( res => {
         console.log("working...")
-        setIsUploading(true);
         setSuccess(res.ok);
       if (!res.ok) {
         console.log(res)
@@ -29,11 +25,9 @@ const usePostFiles = () => {
         throw Error("Something went wrong");    
       }})
     .then(() => {
-      console.log("New file added");
-      setIsUploading(false);
+      console.log("New file read");
       setSuccess(true);
       setSelectedFile('');
-      history.push("/read");
     })
     .catch(error => {
         if( error?.request){
@@ -43,7 +37,7 @@ const usePostFiles = () => {
         }
     });
 };
-  return { isUploading, setIsUploading, error, setError, selectedFile, setSelectedFile, success, submitFile };
+  return {error, setError, selectedFile, setSelectedFile, success, submitFile };
 };
 
 export default usePostFiles;

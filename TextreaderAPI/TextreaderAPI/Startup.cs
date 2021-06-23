@@ -1,18 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Swagger;
-using Microsoft.OpenApi.Models;
 
 namespace TextreaderAPI
 {
@@ -34,7 +24,8 @@ namespace TextreaderAPI
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                     builder =>
                                     {
-                                        builder.WithOrigins()
+                                        builder.WithOrigins("http://localhost:3000",
+                                                             "https://localhost44362")
                                                             .AllowAnyHeader()
                                                             .AllowAnyMethod()
                                                             .AllowAnyOrigin();
@@ -61,14 +52,6 @@ namespace TextreaderAPI
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
-
-            app.UseSwagger();
-
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TextreaderApi v1");
-                c.RoutePrefix = string.Empty;
-            });
 
             app.UseEndpoints(endpoints =>
             {

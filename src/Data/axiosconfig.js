@@ -1,9 +1,9 @@
 const axios = require ('axios');
 
 const defaultOptions = {
-    baseURL: "localhost:44362/files",
+    baseURL: "https://localhost:44326/files",
     headers: {
-        'Content-Type': 'multipart/from-data'
+        'Content-Type': 'multipart/form-data'
     }
 };
 

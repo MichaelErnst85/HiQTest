@@ -9,5 +9,11 @@ namespace TextreaderAPI.Methods
 {
     public class HandlerMethod
     {
+        public string text { get; set; }
+
+        public HandlerMethod(string _text)
+        {
+            text = _text;
+        }
     }
 }

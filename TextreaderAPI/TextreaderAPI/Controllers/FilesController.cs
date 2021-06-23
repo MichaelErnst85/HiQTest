@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using TextreaderAPI.Methods;
 
 namespace TextreaderAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class filesController : ControllerBase
+    public class FilesController : ControllerBase
     {
-        private readonly ILogger<filesController> _logger;
+        private readonly ILogger<FilesController> _logger;
 
-        public filesController(ILogger<filesController> logger)
+        public FilesController(ILogger<FilesController> logger)
         {
             _logger = logger;
         }
@@ -25,31 +26,35 @@ namespace TextreaderAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> Get()
         {
-           
+            Console.WriteLine("Hello all!");
             return Ok();
         }
 
-        // GET: api/files/5
-
+        
         [HttpPost]
-        public async Task<ActionResult> PostFile(IFormFile formFile)
+        public async Task<ActionResult> Post(IFormFile formFile)
         {
-            string[] validFiles = { "txt/plain", "application/octet-stream" };
-            if (!validFiles.Contains(formFile.ContentType))
-            {
-                return BadRequest("Does not support" + formFile.ContentType);
-            }
+            
+            
+                //string[] acceptedFiles = { "text/plain", "application/octet-stream"};
 
-            var result = new StringBuilder();
+                //if(!acceptedFiles.Contains(formFile.ContentType))
+                //{
+                //    return BadRequest("Not supported" + formFile.ContentType);
+                //}
 
-            using (var reader = new StreamReader(formFile.OpenReadStream()))
-            {
-                while (reader.Peek() >= 0)
-                    result.AppendLine(await reader.ReadLineAsync());
-            }
+                var result = new StringBuilder();
+                using (var stream = new StreamReader(formFile.OpenReadStream()))
+                {
+                    while (stream.Peek() >= 0)
+                        result.AppendLine(await stream.ReadLineAsync());
+                }
 
-            return new OkObjectResult(result);
+                
+            
 
+            HandlerMethod text = new HandlerMethod(result.ToString());
+            return new OkObjectResult(text);
         }
     }
 }

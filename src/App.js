@@ -5,6 +5,7 @@ import Home from "./Components/Home";
 import NavBar from "./Components/StandardComponents/NavBar";
 import Privacy from "./Components/StandardComponents/Privacy";
 import Reader from "./Components/Reader";
+import ReaderFileReader from "./Components/ReaderFileReader";
 
 
 
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route path="/read">
               <Reader /> 
+            </Route>
+            <Route path="/readWithFR">
+             <ReaderFileReader /> 
             </Route>
             <Route path="/privacy">
               <Privacy /> 

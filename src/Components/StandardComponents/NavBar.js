@@ -6,6 +6,7 @@ const NavBar = () => {
             <div className="link-wrapper">
                 <Link to="/">Home</Link>
                 <Link to="/read">Read</Link>
+                <Link to="/readWithFR">Read w FR</Link>
             </div>
         </div>
      );

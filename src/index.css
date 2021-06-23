@@ -73,7 +73,7 @@ color:rgb(255, 255, 255)
   }
   
 }
-.home, .upload, .reader, .privacy, .error{
+.home, .upload, .reader, .privacy, .error, .file-reader{
   border: 1px solid rgb(252, 81, 1);
   border-radius: 5px;
   padding: .2rem .4rem;

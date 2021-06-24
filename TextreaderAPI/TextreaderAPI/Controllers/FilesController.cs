@@ -37,16 +37,17 @@ namespace TextreaderAPI.Controllers
 
             if (formFile == null)
             {
+                
                 return BadRequest("No file!");
             }
             else
             {
-                //string[] acceptedFiles = { "text/plain", "application/octet-stream"};
+                string[] acceptedFiles = { "text/plain", "application/msword", "application/octet-stream" };
 
-                //if(!acceptedFiles.Contains(formFile.ContentType))
-                //{
-                //    return BadRequest("Not supported" + formFile.ContentType);
-                //}
+                if (!acceptedFiles.Contains(formFile.ContentType))
+                {
+                    return BadRequest("Not supported" + formFile.ContentType);
+                }
 
                 var result = new StringBuilder();
                 using (var stream = new StreamReader(formFile.OpenReadStream()))
@@ -56,7 +57,7 @@ namespace TextreaderAPI.Controllers
                 }
 
                 HandlerMethod text = new HandlerMethod(result.ToString());
-                return new OkObjectResult(text);
+                return new OkObjectResult(new { TopOccurance = text.TopOccurence(), Result = text.AddText() });
             }
 
 

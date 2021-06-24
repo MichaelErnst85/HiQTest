@@ -7,27 +7,37 @@ const Reader = () => {
   
   const [fileResult, setFileResult] = useState(null);
   const [file, setFile] = useState('');
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false)
 
+    const tryAgain = () => {
+      setSuccess(false);
+      setFileResult(null);
+      setError(null);
+      setFile("");
+    }
+
+    const handleDrop = acceptedFiles =>
     
-
-    function handleDrop (e){
-      setFile(e.target.value);
-    } 
-
+      setFile(acceptedFiles.map(file => file));
+   
+      
+      
     // eslint-disable-next-line no-unused-vars
     const { getRootProps, getInputProps } = useDropzone({ handleDrop });
 
 
     const  handleUpload = async () => {
       let formData = new FormData();
-      console.log('Recieved file: ' + file[0].name);
-      formData.append('file', file[0]);
-    console.log(formData.get(file[0]))
+      formData.append('formFile', file[0]);
       await axios.post("/", formData)
-      .then(res => {
+       .then(res => {
         console.log(res);  
-        setFileResult(res);
-      }).catch(err => console.log(err.message))
+        setFileResult(res.data.result);
+        setSuccess(true);
+        setError(null)
+      }).catch(err => 
+      setError(err?.message));
     
     }
 
@@ -45,17 +55,23 @@ const Reader = () => {
             </div>
         }
       </Dropzone>
+     
    
-
+<div className="button-wrapper">
             <button onClick= { handleUpload } >
               Upload
             </button>
-            
+            {success && <button onClick= { tryAgain } >
+              Clear
+            </button>}
+            </div>
+            {error && <h2> { error } </h2>}
+            {error && <button onClick={ tryAgain }> Clear </button>}
             <div className="text-field">
-            <article>
-              <p>
+            <article className="article-text">
+              <pre>
                 { fileResult }
-              </p>
+              </pre>
             </article>
             </div>
         

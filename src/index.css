@@ -88,7 +88,7 @@ color:rgb(255, 255, 255)
   margin-bottom: 5rem;
   
 }
-.privacy h1, .home h1, .reader h1, .upload  h1, .error h1{
+.privacy h1, .home h1, .reader h1, .upload  h1, .error h1, .file-reader h1{
   color:rgb(252, 81, 1);
 }
 #upload {
@@ -117,20 +117,13 @@ color:rgb(255, 255, 255)
   width: 100%;
 }
 
-.file-list {
-  padding: 10px;
-  
+.article-text {
+  padding: 25px 0;
 }
 
-.file-list h2 {
-  border: 1px solid rgb(252, 81, 1);
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  color:rgb(252, 81, 1);
-  box-shadow: 0 7px 7px rgba(104, 103, 103, 0.849);
-}
-.file-list a {
-  text-decoration: none;
+.button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
 }
 .error a {
   text-decoration: none;
@@ -139,70 +132,3 @@ color:rgb(255, 255, 255)
   font-weight: bold;
 }
 
-
-/* From CodePen*/
-
-#load {
-  position:absolute;
-  width:600px;
-  height:36px;
-  left:50%;
-  top:40%;
-  margin-left:-300px;
-  overflow:visible;
-  user-select:none;
-  cursor:default;
-}
-
-#load div {
-  position:absolute;
-  width:20px;
-  height:36px;
-  opacity:0;
-  font-family: 'Quicksand', sans-serif;
-  animation:move 2s linear infinite;
-  transform:rotate(180deg);
-  color:rgb(252, 81, 1);
-}
-
-#load div:nth-child(2) {
-  animation-delay:0.2s;
-}
-#load div:nth-child(3) {
-  animation-delay:0.4s;
-
-}
-#load div:nth-child(4) {
-  animation-delay:0.6s;
-}
-#load div:nth-child(5) {
-  animation-delay:0.8s;
-}
-#load div:nth-child(6) {
-  animation-delay:1s;
-}
-#load div:nth-child(7) {
-  animation-delay:1.2s;
-}
-
-@keyframes move {
-  0% {
-    left:0;
-    opacity:0;
-  }
-	35% {
-		left: 41%;
-		transform:rotate(0deg);
-		opacity:1;
-	}
-	65% {
-		left:59%;
-		transform:rotate(0deg); 
-		opacity:1;
-	}
-	100% {
-		left:100%; 
-		transform:rotate(-180deg);
-		opacity:0;
-	}
-}

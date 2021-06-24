@@ -22,20 +22,22 @@ const ReaderFileReader = () => {
 
     const {getRootProps, getInputProps} = useDropzone({onDrop})
     return ( <div className="file-reader">
+        <h1>Read using Filereader API</h1>
         <div {...getRootProps()}>
             <input {...getInputProps()} />
             <p>
             Drag 'n' drop some files here, or click to select files
             </p>
         </div>
-        <div>
-            <article>
-                <h2>
+        <h2>
                     Your file!
                 </h2>
-                <p>
+        <div>
+            <article className="article-text">
+                
+                <pre>
                     { fileText }
-                </p>
+                </pre>
             </article>
         </div>
     </div> );

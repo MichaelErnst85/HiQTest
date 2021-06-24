@@ -34,8 +34,13 @@ namespace TextreaderAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(IFormFile formFile)
         {
-            
-            
+
+            if (formFile == null)
+            {
+                return BadRequest("No file!");
+            }
+            else
+            {
                 //string[] acceptedFiles = { "text/plain", "application/octet-stream"};
 
                 //if(!acceptedFiles.Contains(formFile.ContentType))
@@ -50,11 +55,12 @@ namespace TextreaderAPI.Controllers
                         result.AppendLine(await stream.ReadLineAsync());
                 }
 
-                
-            
+                HandlerMethod text = new HandlerMethod(result.ToString());
+                return new OkObjectResult(text);
+            }
 
-            HandlerMethod text = new HandlerMethod(result.ToString());
-            return new OkObjectResult(text);
+
+
         }
     }
 }

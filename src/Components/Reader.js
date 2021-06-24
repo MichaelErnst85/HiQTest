@@ -5,26 +5,26 @@ import axios from '../Data/axiosconfig';
 
 const Reader = () => {
   
-  const [fileResult, setFileResult] = useState("");
-  const [fileName, setFileName] = useState('');
+  const [fileResult, setFileResult] = useState(null);
+  const [file, setFile] = useState('');
 
     
 
-    const handleDrop = acceptedFiles =>
-    
-      setFileName(acceptedFiles.map(file => file));
-      console.log(fileName)
+    function handleDrop (e){
+      setFile(e.target.value);
+    } 
 
     // eslint-disable-next-line no-unused-vars
     const { getRootProps, getInputProps } = useDropzone({ handleDrop });
 
 
-    const handleUpload = () => {
+    const  handleUpload = async () => {
       let formData = new FormData();
-      console.log('Recieved file: ' + fileName[0])
-      formData.append('file', fileName)
-      axios.post("/", formData)
-      .then(async res => {
+      console.log('Recieved file: ' + file[0].name);
+      formData.append('file', file[0]);
+    console.log(formData.get(file[0]))
+      await axios.post("/", formData)
+      .then(res => {
         console.log(res);  
         setFileResult(res);
       }).catch(err => console.log(err.message))

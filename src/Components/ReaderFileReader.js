@@ -5,6 +5,9 @@ const ReaderFileReader = () => {
 
     const [fileText, setFileText] = useState("");
 
+    const tryAgain = () => {
+       setFileText("")
+      }
     const onDrop = useCallback((acceptedFiles) => {
       acceptedFiles.forEach((file) => {
         const reader = new FileReader();
@@ -23,18 +26,19 @@ const ReaderFileReader = () => {
     const {getRootProps, getInputProps} = useDropzone({onDrop})
     return ( <div className="file-reader">
         <h1>Read using Filereader API</h1>
+        <h4> without adding foo or bar</h4>
         <div {...getRootProps()}>
             <input {...getInputProps()} />
             <p>
             Drag 'n' drop some files here, or click to select files
             </p>
         </div>
-        <h2>
-                    Your file!
-                </h2>
+       
+               <button onClick= { tryAgain }>Clear</button>
+               
+                
         <div>
             <article className="article-text">
-                
                 <pre>
                     { fileText }
                 </pre>

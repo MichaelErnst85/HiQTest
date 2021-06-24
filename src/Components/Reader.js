@@ -8,7 +8,8 @@ const Reader = () => {
   const [fileResult, setFileResult] = useState(null);
   const [file, setFile] = useState('');
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(false);
+  const [topOccurence, setTopOcurrence] = useState('');
 
     const tryAgain = () => {
       setSuccess(false);
@@ -34,6 +35,7 @@ const Reader = () => {
        .then(res => {
         console.log(res);  
         setFileResult(res.data.result);
+        setTopOcurrence(res.data.topOccurence)
         setSuccess(true);
         setError(null)
       }).catch(err => 
@@ -45,7 +47,7 @@ const Reader = () => {
       <div className="reader">
 
         <h1>Read using API</h1>
-      <Dropzone onDrop={ handleDrop }>
+      {!success && <Dropzone onDrop={ handleDrop }>
         {({ getRootProps, getInputProps })=>
         <div {...getRootProps()}>
           <input {...getInputProps()} />
@@ -54,21 +56,23 @@ const Reader = () => {
             </p>
             </div>
         }
-      </Dropzone>
+      </Dropzone>}
      
    
 <div className="button-wrapper">
-            <button onClick= { handleUpload } >
+            {!success && <button onClick= { handleUpload } >
               Upload
-            </button>
+            </button>}
             {success && <button onClick= { tryAgain } >
               Clear
             </button>}
             </div>
             {error && <h2> { error } </h2>}
             {error && <button onClick={ tryAgain }> Clear </button>}
+            
             <div className="text-field">
             <article className="article-text">
+            {success && <p>Word occuring the most: { topOccurence }</p>}
               <pre>
                 { fileResult }
               </pre>

@@ -9,20 +9,27 @@ namespace TextreaderAPI.Methods
 {
     public class HandlerMethod
     {
-        public List<string> AllLines { get; set; }
+        public List<string> AllWords { get; set; }
         public string input { get; set; }
+
+        //--- Array med de vanligaste avsluten för meningar. För att kunna särskilja ord från karaktärer
+        string[] enders = { ".", ",", "!", "?", "_", @"\", ";" };
 
         public HandlerMethod(string _text)
         {
             input = _text;
-            AllLines = new List<string>();
-            string[] enders = { ".", ",", "!", "?", "_", "\\", ";" };
-            string receivedText = Regex.Replace(_text, @"\\s+", " ");
-            receivedText = receivedText.Replace("\"", "");
+            AllWords = new List<string>();
+
+
+
+            string receivedText = Regex.Replace(_text, @"\s+", " ");
+            receivedText = receivedText.Replace(@"\", " ");
+
+            //--- Comment functionality of these loops
             string[] temp = receivedText.Split(" ");
             for (int i = 0; i < temp.Count(); i++)
             {
-                if(temp[i] != "")
+                if (temp[i] != "")
                 {
                     for (int ii = 0; ii < enders.Count(); ii++)
                     {
@@ -32,35 +39,63 @@ namespace TextreaderAPI.Methods
                             break;
                         }
                     }
-                    AllLines.Add(temp[i]);
+                    AllWords.Add(temp[i]);
                 }
             }
         }
-
+        #region Metod för att hitta ordet som skrivs flest gånger i texten
         public string TopOccurence()
         {
             Dictionary<string, int> myDictionary = new Dictionary<string, int>();
 
-            foreach(string word in AllLines)
+            var comparer = StringComparer.OrdinalIgnoreCase;
+            var newDictionary = new Dictionary<string, int>(myDictionary, comparer);
+
+            foreach (string word in AllWords)
             {
-                string w = word.Trim().ToLower();
-                if(!myDictionary.ContainsKey(w))
+                try
                 {
-                    myDictionary.Add(w, 1);
+                    if (!newDictionary.ContainsKey(word))
+                    {
+                        newDictionary.Add(word, 1);
+
+                    }
+                    else
+                    {
+                        newDictionary[word] += 1;
+                    }
                 }
-                else 
+                catch (Exception ex)
                 {
-                    myDictionary[w] += 1;
+                    throw;
                 }
             }
-            var first = myDictionary.OrderByDescending(x => x.Value).First();
+            var first = newDictionary.OrderByDescending(x => x.Value).First();
             return first.Key;
-        }
 
+            return "";
+        }
+        #endregion
+
+        #region Metod för att lägga till foo och bar runt det vanligaste ordet i texten
         public string AddText()
         {
-            string topOccurence = this.TopOccurence();
-            return input.Replace(topOccurence, "foo" + topOccurence + "bar");
+            string topOccurence = TopOccurence();
+            string result = ReplaceCaseInsensitive(input, topOccurence, topOccurence);
+
+            return result;
         }
+        #endregion
+
+        #region Metod för att enbart byta ordet inte ord som innehåller t.ex The.
+        private static string ReplaceCaseInsensitive(string input, string search, string replacement)
+        {
+            string pattern = @"(" + search + @")\b";
+
+            var result = Regex.Replace(input, pattern, $"foo{replacement}bar", RegexOptions.IgnoreCase);
+
+            return result;
+        }
+        #endregion
     }
 }

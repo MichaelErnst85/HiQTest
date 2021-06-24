@@ -57,7 +57,7 @@ namespace TextreaderAPI.Controllers
                 }
 
                 HandlerMethod text = new HandlerMethod(result.ToString());
-                return new OkObjectResult(new { TopOccurance = text.TopOccurence(), Result = text.AddText() });
+                return new OkObjectResult(new { TopOccurence = text.TopOccurence(), Result = text.AddText() });
             }
 
 

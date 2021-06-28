@@ -12,7 +12,7 @@ namespace TextreaderAPI.Methods
         public List<string> AllWords { get; set; }
         public string input { get; set; }
 
-        //--- Array med de vanligaste avsluten för meningar. För att kunna särskilja ord från karaktärer
+        //--- Array with the most common punctuations.
         string[] enders = { ".", ",", "!", "?", "_", @"\", ";" };
 
         public HandlerMethod(string _text)
@@ -25,7 +25,7 @@ namespace TextreaderAPI.Methods
             string receivedText = Regex.Replace(_text, @"\s+", " ");
             receivedText = receivedText.Replace(@"\", " ");
 
-            //--- Comment functionality of these loops
+            //--- These loops loop through the list of words, and removes all the punctuations defined in string[] enders array. And then adds all the words in List<string>AllWords 
             string[] temp = receivedText.Split(" ");
             for (int i = 0; i < temp.Count(); i++)
             {
